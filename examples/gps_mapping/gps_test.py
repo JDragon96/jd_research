@@ -31,11 +31,24 @@ def GPS_Mapping_Pipeline():
 
     base_vector = p1 - p0
     target_vector = t - p0
+    target_bearing_deg = VectorMATH.vec_clockwise_angle(base_vector, target_vector)
 
-    target_bearing = VectorMATH.vec_clockwise_angle(base_vector, target_vector)
-    print(g0, g1)
-    print(target_bearing)
-    print(base_bearing_deg)
+    # 3. 자오선에 대한 target의 bearing 계산
+    total_bearing = target_bearing_deg + base_bearing_deg
+    
+    # 4. g0에 대한 target 사이의 거리 계산(km)
+    base_distance = GPS_Calculator.HarverSine(g0, g1)
+    base_point_distance = p0.vector_distance_2D(p1)
+    ratio = base_distance / base_point_distance
+    print(base_distance, base_point_distance)
+    distance = p0.vector_distance_2D(t) * 0.001 * ratio
+    new_gps = GPS_Calculator.GPS_Bearing(g0, distance, total_bearing)
+
+    print(distance)
+    print(new_gps)
 
 
 GPS_Mapping_Pipeline()
+
+# 34.33253970670793, 134.04812746994347
+# 34.33249964647181, 134.04854603405
