@@ -1,6 +1,5 @@
-from base_mathUtils import *
-from DataStructure.Vector2D import Vector2D
-from DataStructure.GPS import GPSPoint
+from ResearchLibs.DataStructure.Vector2D import Vector2D
+from ResearchLibs.DataStructure.GPS import GPSPoint
 
 def GPS2Vector2D(gps):
     return Vector2D(gps._x, gps._y, gps._z)

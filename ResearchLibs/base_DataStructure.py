@@ -3,8 +3,8 @@ Copyright (c) threewaysoft. All rights reserved.
 Licensed under MIT License
 Author: Jaeyong Seong
 """
-from base_wrapUtils import *
-from base_mathUtils import *
+from ResearchLibs.base_wrapUtils import *
+from ResearchLibs.base_mathUtils import *
 
 class VectorBase:
     _x = 0

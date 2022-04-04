@@ -3,9 +3,7 @@ Copyright (c) threewaysoft. All rights reserved.
 Licensed under MIT License
 Author: Jaeyong Seong
 """
-import numpy as np
-from base_wrapUtils import *
-from DataStructure.Vector2D import *
+from ResearchLibs.DataStructure.Vector2D import *
 import math
 
 class CircularMATH:
@@ -39,9 +37,9 @@ class VectorMATH:
         dot_deg = CircularMATH.rad2deg(math.acos(dot_cos))
 
         if flip:
-            return CircularMATH.deg2rad(360 - dot_deg)
+            return 360 - dot_deg
         else:
-            return CircularMATH.deg2rad(dot_deg)
+            return dot_deg
 
 
 @nparray_wrapping_func

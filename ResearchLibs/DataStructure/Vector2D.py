@@ -3,9 +3,9 @@ Copyright (c) threewaysoft. All rights reserved.
 Licensed under MIT License
 Author: Jaeyong Seong
 """
-from base_DataStructure import *
-from base_mathUtils import *
-from base_wrapUtils import *
+from ResearchLibs.base_DataStructure import *
+from ResearchLibs.base_mathUtils import *
+from ResearchLibs.base_wrapUtils import *
 
 class Vector2D(VectorBase):
     def vector_norm2D(self):

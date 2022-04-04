@@ -3,8 +3,8 @@ Copyright (c) threewaysoft. All rights reserved.
 Licensed under MIT License
 Author: Jaeyong Seong
 """
-from base_mathUtils import *
-from DataStructure.GPS import GPSPoint
+from ResearchLibs.base_mathUtils import *
+from ResearchLibs.DataStructure.GPS import GPSPoint
 from collections.abc import Sequence
 
 import math

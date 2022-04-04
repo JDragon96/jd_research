@@ -3,7 +3,7 @@ Copyright (c) threewaysoft. All rights reserved.
 Licensed under MIT License
 Author: Jaeyong Seong
 """
-from base_mathUtils import *
+from ResearchLibs.base_mathUtils import *
 
 class GPSPoint(object):
     _x = 0

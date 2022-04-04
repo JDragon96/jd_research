@@ -1,11 +1,6 @@
-import numpy as np
-import sys
-import math
-from DataStructure.Vector2D import Vector2D
-from DataStructure.GPS import GPSPoint
-from DataStructure.DataConverter import *
-from base_mathUtils import *
-from GISLib.GIS_GPS_Calculator import GPS_Calculator
+from ResearchLibs.DataStructure.DataConverter import *
+from ResearchLibs.base_mathUtils import *
+from ResearchLibs.GISLib.GIS_GPS_Calculator import GPS_Calculator
 
 def GPS_Mapping_Pipeline():
     ## 0. 기준 GPS값 매핑
@@ -28,8 +23,6 @@ def GPS_Mapping_Pipeline():
     g1 = my_GPS[1]
     g0, g1 = GPS_Calculator.GPS_Sorting([g0, g1])
     base_bearing_deg = GPS_Calculator.TWO_GPS_Bearing(g0, g1)
-    print(base_bearing_deg)
-    print(GPS_Calculator.HarverSine(g0, g1))
 
     # 2. 기준 GPS값과 타겟 포인트 사이의 bearing 계산
     t = Vector2D(-10, 10, 11.599462)
@@ -41,10 +34,8 @@ def GPS_Mapping_Pipeline():
 
     target_bearing = VectorMATH.vec_clockwise_angle(base_vector, target_vector)
     print(g0, g1)
-    print(CircularMATH.rad2deg(target_bearing))
+    print(target_bearing)
+    print(base_bearing_deg)
 
 
 GPS_Mapping_Pipeline()
-# g0 = GPSPoint(0,0,0,34.33298587287949, 134.0480806664525)
-# g1 = GPSPoint(0,0,0, 34.3325498987043, 134.04801339215328)
-# print(CircularMATH.rad2deg(GPS_Calculator.TWO_GPS_Bearing(g0, g1)) + 360)
