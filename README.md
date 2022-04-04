@@ -1,2 +1,3 @@
-# jd_research
-research_repo
+# Research Code
+My Research Repository
+ONLY Python
