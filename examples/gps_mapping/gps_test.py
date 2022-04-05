@@ -23,18 +23,21 @@ def GPS_Mapping_Pipeline():
     g1 = my_GPS[1]
     g0, g1 = GPS_Calculator.GPS_Sorting([g0, g1])
     base_bearing_deg = GPS_Calculator.TWO_GPS_Bearing(g0, g1)
+    print(base_bearing_deg)
 
     # 2. 기준 GPS값과 타겟 포인트 사이의 bearing 계산
-    t = Vector2D(-10, 10, 11.599462)
+    t = Vector2D(-10, 0, 11.599462)
     p0 = GPS2Vector2D(g0)
     p1 = GPS2Vector2D(g1)
 
     base_vector = p1 - p0
     target_vector = t - p0
     target_bearing_deg = VectorMATH.vec_clockwise_angle(base_vector, target_vector)
+    print(target_bearing_deg)
 
     # 3. 자오선에 대한 target의 bearing 계산
     total_bearing = target_bearing_deg + base_bearing_deg
+    print(total_bearing)
     
     # 4. g0에 대한 target 사이의 거리 계산(km)
     base_distance = GPS_Calculator.HarverSine(g0, g1)
@@ -49,6 +52,3 @@ def GPS_Mapping_Pipeline():
 
 
 GPS_Mapping_Pipeline()
-
-# 34.33253970670793, 134.04812746994347
-# 34.33249964647181, 134.04854603405

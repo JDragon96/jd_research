@@ -5,4 +5,4 @@ def GPS2Vector2D(gps):
     return Vector2D(gps._x, gps._y, gps._z)
 
 def Vector2GPS(vector):
-    return GPSPoint(vector.x, vector.y, vector.z)
+    return GPSPoint(vector._x, vector._y, vector._z)

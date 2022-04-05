@@ -5,7 +5,6 @@ Author: Jaeyong Seong
 """
 from ResearchLibs.base_mathUtils import *
 from ResearchLibs.DataStructure.GPS import GPSPoint
-from collections.abc import Sequence
 
 import math
 
@@ -39,7 +38,11 @@ class GPS_Calculator(object):
 
     @staticmethod
     def GPS_Bearing(gps, distance, bearing) -> GPSPoint:
-        """ 기준 GPS를 알 때, bearing과 distance를 이용한 새 GPS 포인트 계산 """
+        """
+        기준 GPS를 알 때, bearing과 distance를 이용한 새 GPS 포인트 계산
+        distance's unit => km
+        bearing's unit => degree
+        """
         lat1, lon1 = gps._lat, gps._lon
         delta = distance / GPS_Calculator.R
         bearing = bearing / 180 * math.pi
@@ -57,7 +60,18 @@ class GPS_Calculator(object):
     @staticmethod
     def HarverSine(gps0, gps1):
         lat1, lon1, lat2, lon2 = gps0._lat, gps0._lon, gps1._lat, gps1._lon
-        R = 6378.137  # 지구의 반지름(KM)
+        R = GPS_Calculator.R
+        dLat = lat2 * math.pi / 180 - lat1 * math.pi / 180  # rad
+        dLon = lon2 * math.pi / 180 - lon1 * math.pi / 180  # rad
+        a = math.sin(dLat / 2) * math.sin(dLat / 2) + math.cos(lat1 * math.pi / 180) * math.cos(lat2 * math.pi / 180) * \
+            math.sin(dLon / 2) * math.sin(dLon / 2)
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        d = R * c
+        return d * 1000
+
+    @staticmethod
+    def HarverSine_v2(lat1, lon1, lat2, lon2):
+        R = GPS_Calculator.R
         dLat = lat2 * math.pi / 180 - lat1 * math.pi / 180  # rad
         dLon = lon2 * math.pi / 180 - lon1 * math.pi / 180  # rad
         a = math.sin(dLat / 2) * math.sin(dLat / 2) + math.cos(lat1 * math.pi / 180) * math.cos(lat2 * math.pi / 180) * \

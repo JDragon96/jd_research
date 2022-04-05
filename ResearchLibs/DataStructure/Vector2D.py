@@ -4,8 +4,8 @@ Licensed under MIT License
 Author: Jaeyong Seong
 """
 from ResearchLibs.base_DataStructure import *
-from ResearchLibs.base_mathUtils import *
 from ResearchLibs.base_wrapUtils import *
+from ResearchLibs.base_mathUtils import CircularMATH
 
 class Vector2D(VectorBase):
     def vector_norm2D(self):
@@ -45,6 +45,10 @@ class Vector2D(VectorBase):
     def vector_dot(self, other):
         return self._x * other._x + self._y * other._y
 
+    def setColor(self,r,g,b):
+        self._r = r
+        self._g = g
+        self._b = b
 
     """ MAGIC METHODS! """
     def __add__(self, other):
