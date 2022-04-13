@@ -2,7 +2,10 @@ from ResearchLibs.GISLib.GIS_GPS_Calculator import GPS_Calculator
 from ResearchLibs.GISLib.GPS_Manager import GPSManager
 from ResearchLibs.base_mathUtils import *
 from ResearchLibs.DataStructure.DataHandler import *
+from ResearchLibs.IOLib.File_Handler import getOnlyFileName
+from ResearchLibs.DataStructure.GPS import GPSPoint
 import copy
+import json
 
 def DataCrop(data, target_gps):
     crop_data = []
@@ -15,7 +18,7 @@ def DataCrop(data, target_gps):
 
 def GPS_MAPPING_ON_POINT_CLOUD_PIPELINE(gpsfile, datafile, debug=False):
     ## 0. load data
-    hub = DATA_HUB(datafile, "save_data", debug)
+    hub = DATA_HUB(datafile, getOnlyFileName(datafile), debug)
     data = hub.DATA_load()
 
     ## 1. gps sort
@@ -54,17 +57,29 @@ def GPS_MAPPING_ON_POINT_CLOUD_PIPELINE(gpsfile, datafile, debug=False):
         b.append(t._b)
 
     ## GPS => POINT CLOUD(METER) SCALING
-    x = np.array(x) * manager.lat_scaling()
-    y = np.array(y) * manager.lon_scaling()
-    min_x = min(x)
-    min_y = min(y)
-    x = -x + min_x
-    y -= min_y
+    save_data = np.vstack([x, y, z, r, g, b])
+    save_data[0] *= -manager.lat_scaling()     # inverse x-axis
+    save_data[1] *= manager.lon_scaling()
+    min_x = min(save_data[0])
+    min_y = min(save_data[1])
+    save_data[0] -= min_x
+    save_data[1] -= min_y
 
-    new_data = np.vstack([x,y,z,r,g,b])
-    ## DataCrop(new_data)
+    json_data = {
+        "gps_file": gpsfile,
+        "data_file": datafile,
+        "lat_scale": manager.lat_scaling(),
+        "lon_scale": manager.lon_scaling(),
+        "min_x": min_x,
+        "min_y": min_y
+    }
 
-    hub.DATA_save(new_data)
+    ## las save
+    hub.DATA_save(save_data)
+
+    ## META DATA SAVE
+    with open(f".\\{getOnlyFileName(datafile)}.json", "w") as json_file:
+        json.dump(json_data, json_file)
 
 if __name__=="__main__":
-    GPS_MAPPING_ON_POINT_CLOUD_PIPELINE("my_gps_2.txt", "test_data.las", True)
+    GPS_MAPPING_ON_POINT_CLOUD_PIPELINE("test_data.txt", r"E:\test_data.las", True)

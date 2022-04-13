@@ -32,8 +32,9 @@ class GPS_Calculator(object):
             gps1 = gps[1]
             gps0 = gps[0]
         else:
+            temp_gps = gps[1]
             gps1 = gps[0]
-            gps0 = gps[1]
+            gps0 = temp_gps
         return gps0, gps1
 
     @staticmethod
