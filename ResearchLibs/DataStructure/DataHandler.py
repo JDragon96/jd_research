@@ -26,6 +26,7 @@ def load_las(filepath):
     return my_data, las_header
 
 def save_las(data, header, filename):
+
     with laspy.file.File(f"{filename}.las", mode="w", header=header) as lasfile:
         lasfile.header.offset = header.offset
         lasfile.header.scale = header.scale
@@ -107,6 +108,15 @@ class DATA_HUB:
                   f"data save : {np.shape(data)}\n")
 
         if self.load_extension == ".las":
+            ch = np.shape(data)[0]
+
+            if ch != 6:
+                if self.debug:
+                    print(f"변환 전 데이터 쉐입 : {np.shape(data)}")
+                data = np.array(data).T
+                if self.debug:
+                    print(f"변환 후 데이터 쉐입 : {np.shape(data)}")
+
             save_las(data, self.header, self.save_file_name)
         elif self.load_extension == ".e57":
             save_e57(data)
